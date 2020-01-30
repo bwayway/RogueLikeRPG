@@ -1,0 +1,10 @@
+C:\Users\y15008\source\repos\git\hold\RogueLike\bin\Debug\RogueLike.exe.config
+C:\Users\y15008\source\repos\git\hold\RogueLike\bin\Debug\RogueLike.exe
+C:\Users\y15008\source\repos\git\hold\RogueLike\bin\Debug\RogueLike.pdb
+C:\Users\y15008\source\repos\git\hold\RogueLike\bin\Debug\OpenTK.dll
+C:\Users\y15008\source\repos\git\hold\RogueLike\bin\Debug\SunshineConsole.dll
+C:\Users\y15008\source\repos\git\hold\RogueLike\bin\Debug\OpenTK.xml
+C:\Users\y15008\source\repos\git\hold\RogueLike\obj\Debug\RogueLike.csprojAssemblyReference.cache
+C:\Users\y15008\source\repos\git\hold\RogueLike\obj\Debug\RogueLike.csproj.CopyComplete
+C:\Users\y15008\source\repos\git\hold\RogueLike\obj\Debug\RogueLike.exe
+C:\Users\y15008\source\repos\git\hold\RogueLike\obj\Debug\RogueLike.pdb
