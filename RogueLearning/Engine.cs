@@ -5,22 +5,44 @@ namespace RogueLearning
 {
     public class Engine
     {
-        private const int screenWidth = 80;
-        private const int screenHeight = 24;
-        private static int playerX;
-        private static int playerY;
-
+        // The total screen height and width
+        private static readonly int _screenWidth = 100;
+        private static readonly int _screenHeight = 70;
         private static RLRootConsole _rootConsole;
 
+        //The Map console
+        private static readonly int _mapWidth = 80;
+        private static readonly int _mapHeight = 48;
+        private static RLConsole _mapConsole;
 
+        //Message console to display events and information
+        private static readonly int _messageWidth = 80;
+        private static readonly int _messageHeight = 11;
+        private static RLConsole _messageConsole;
+
+        //Stat Console displays player and monster stats
+        private static readonly int _statWidth = 20;
+        private static readonly int _statHeight = 70;
+        private static RLConsole _statConsole;
+
+        //Inventory console shows players equipment, abilities, items
+        private static readonly int _inventoryWidth = 80;
+        private static readonly int _inventoryHeight =11;
+        private static RLConsole _inventoryConsole;
 
 
         static void Main(string[] args)
         {
-            _rootConsole = new RLRootConsole("ascii_8x8.png", screenWidth, screenHeight, 8, 8, 2f, "RLLearning");
-            _rootConsole.OnLoad += RootConsole_OnLoad;
-            _rootConsole.Render += RootConsole_Render;
-            _rootConsole.Update += RootConsole_Update;
+            _rootConsole = new RLRootConsole("ascii_8x8.png", _screenWidth, _screenHeight, 8, 8, 1f, "RLLearning");
+
+            _mapConsole = new RLConsole(_mapWidth, _mapHeight);
+            _messageConsole = new RLConsole(_messageWidth, _messageHeight);
+            _statConsole = new RLConsole(_statWidth, _statHeight);
+            _inventoryConsole = new RLConsole(_inventoryWidth, _inventoryHeight);
+
+
+            _rootConsole.Render += OnRootConsoleRender;
+            _rootConsole.Update += OnRootConsoleUpdate;
 
             _rootConsole.Run();
         }
@@ -28,20 +50,22 @@ namespace RogueLearning
 
 
 
-        private static void RootConsole_OnLoad(object sender, EventArgs e)
-        {
-            playerX = screenWidth / 2;
-            playerY = screenHeight / 2;
-        }
 
-
-
-
-        private static void RootConsole_Render(object sender, UpdateEventArgs e)
+        private static void OnRootConsoleRender(object sender, UpdateEventArgs e)
         {
 
             _rootConsole.Clear();
-            _rootConsole.SetChar(playerX, playerY, '@');
+
+            /*Blitting - adding two consoles (bitmaps) on top of each other.
+             * Takes the source console, the starting position for X any Y, the dimensions of the source console, then takes the root console and maps 
+             * the source console based on dimensions passed in
+            */  
+            RLConsole.Blit(_mapConsole, 0, 0, _mapWidth, _mapHeight, _rootConsole, 0, _inventoryHeight);
+            RLConsole.Blit(_statConsole, 0, 0, _statWidth, _statHeight, _rootConsole, _mapWidth, 0);
+            RLConsole.Blit(_messageConsole, 0, 0, _messageWidth, _messageHeight, _rootConsole, 0, _screenHeight - _messageHeight);
+            RLConsole.Blit(_inventoryConsole, 0, 0, _inventoryWidth, _inventoryHeight, _rootConsole, 0, 0);
+            
+
 
             _rootConsole.Draw();
         }
@@ -49,56 +73,20 @@ namespace RogueLearning
 
 
 
-        private static void RootConsole_Update(object sender, UpdateEventArgs e)
+        private static void OnRootConsoleUpdate(object sender, UpdateEventArgs e)
         {
-            RLKeyPress key = _rootConsole.Keyboard.GetKeyPress();
+            
+            _mapConsole.SetBackColor(0, 0, _mapWidth, _mapHeight, RLColor.Black);
+            _mapConsole.Print(1, 1, "Map", RLColor.White);
 
-            if (key != null)
-            {
-                switch (key.Key)
-                {
-                    case RLKey.Left:
-                        playerX -= 1;
-                        break;
+            _messageConsole.SetBackColor(0, 0, _messageWidth, _messageHeight, Palette.SecondaryDarkest);
+            _messageConsole.Print(1, 1, "Messages", RLColor.White);
 
-                    case RLKey.Right:
-                        playerX += 1;
-                        break;
+            _statConsole.SetBackColor(0, 0, _statWidth, _statHeight, Palette.AlternateDarkest);
+            _statConsole.Print(1, 1, "Stats", RLColor.White);
 
-                    case RLKey.Up:
-                        playerY -= 1;
-                        break;
-
-                    case RLKey.Down:
-                        playerY += 1;
-                        break;
-
-                    case RLKey.Escape:
-                        _rootConsole.Close();
-                        break;
-                }
-            }
-
-            if(playerX < 0)
-            {
-                playerX = 0;
-            }
-
-            if(playerX > screenWidth - 1)
-            {
-                playerX = screenWidth -1;
-            }
-
-            if(playerY < 0)
-            {
-                playerY = 0;
-            }
-
-            if(playerY > screenHeight - 1)
-            {
-                playerY = screenHeight - 1;
-            }
-
+            _inventoryConsole.SetBackColor(0, 0, _inventoryWidth, _inventoryHeight, Palette.PrimaryDarkest);
+            _inventoryConsole.Print(1, 1, "Inventory", RLColor.White);
 
         }
     }
