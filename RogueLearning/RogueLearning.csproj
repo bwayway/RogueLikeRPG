@@ -41,8 +41,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core\Colors.cs" />
+    <Compile Include="Core\DungeonMap.cs" />
     <Compile Include="Engine.cs" />
     <Compile Include="Core\Palette.cs" />
+    <Compile Include="Systems\MapGenerator.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="OpenTK, Version=1.1.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">

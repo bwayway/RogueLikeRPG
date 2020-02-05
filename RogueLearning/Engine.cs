@@ -30,6 +30,12 @@ namespace RogueLearning
         private static readonly int _inventoryHeight =11;
         private static RLConsole _inventoryConsole;
 
+        //The map
+        private static DungeonMap DungeonMap { get;  set; }
+
+
+
+
 
         static void Main(string[] args)
         {
@@ -39,6 +45,9 @@ namespace RogueLearning
             _messageConsole = new RLConsole(_messageWidth, _messageHeight);
             _statConsole = new RLConsole(_statWidth, _statHeight);
             _inventoryConsole = new RLConsole(_inventoryWidth, _inventoryHeight);
+
+            MapGenerator mapGenerator = new MapGenerator(_mapWidth, _mapHeight);
+            DungeonMap = mapGenerator.CreateMap();
 
 
             _rootConsole.Render += OnRootConsoleRender;
@@ -53,21 +62,24 @@ namespace RogueLearning
 
         private static void OnRootConsoleRender(object sender, UpdateEventArgs e)
         {
-
-            _rootConsole.Clear();
+            DungeonMap.Draw(_mapConsole);
 
             /*Blitting - adding two consoles (bitmaps) on top of each other.
-             * Takes the source console, the starting position for X any Y, the dimensions of the source console, then takes the root console and maps 
+             * Takes the source console, the starting position for X and Y, the dimensions of the source console, then takes the root console and maps 
              * the source console based on dimensions passed in
-            */  
+            */
             RLConsole.Blit(_mapConsole, 0, 0, _mapWidth, _mapHeight, _rootConsole, 0, _inventoryHeight);
             RLConsole.Blit(_statConsole, 0, 0, _statWidth, _statHeight, _rootConsole, _mapWidth, 0);
             RLConsole.Blit(_messageConsole, 0, 0, _messageWidth, _messageHeight, _rootConsole, 0, _screenHeight - _messageHeight);
             RLConsole.Blit(_inventoryConsole, 0, 0, _inventoryWidth, _inventoryHeight, _rootConsole, 0, 0);
+
+
+            
+            _rootConsole.Draw();
+
             
 
 
-            _rootConsole.Draw();
         }
 
 
@@ -77,7 +89,7 @@ namespace RogueLearning
         {
             
             _mapConsole.SetBackColor(0, 0, _mapWidth, _mapHeight, RLColor.Black);
-            _mapConsole.Print(1, 1, "Map", RLColor.White);
+            //_mapConsole.Print(1, 1, "Map", RLColor.White);
 
             _messageConsole.SetBackColor(0, 0, _messageWidth, _messageHeight, Palette.SecondaryDarkest);
             _messageConsole.Print(1, 1, "Messages", RLColor.White);
