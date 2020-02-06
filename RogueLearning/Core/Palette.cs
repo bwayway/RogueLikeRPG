@@ -9,7 +9,7 @@ namespace RogueLearning
     {
         public static RLColor Primary = new RLColor(71, 123, 114);
         public static RLColor PrimaryLightest = new RLColor(124, 153, 148);
-        public static RLColor PrimrayLight = new RLColor(96, 137, 130);
+        public static RLColor PrimaryLight = new RLColor(96, 137, 130);
         public static RLColor PrimaryDark = new RLColor(50, 110, 100);
         public static RLColor PrimaryDarkest = new RLColor(32, 98, 87);
 
