@@ -40,10 +40,14 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core\Actor.cs" />
     <Compile Include="Core\Colors.cs" />
     <Compile Include="Core\DungeonMap.cs" />
+    <Compile Include="Core\Player.cs" />
     <Compile Include="Engine.cs" />
     <Compile Include="Core\Palette.cs" />
+    <Compile Include="Interfaces\IActor.cs" />
+    <Compile Include="Interfaces\IDrawable.cs" />
     <Compile Include="Systems\MapGenerator.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -62,5 +66,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

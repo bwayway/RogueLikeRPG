@@ -1,5 +1,6 @@
 ﻿using RLNET;
 using RogueSharp;
+using RogueLearning.Core;
 
 namespace RogueLearning
 {
@@ -48,6 +49,24 @@ namespace RogueLearning
                 else
                 {
                     console.Set(cell.X, cell.Y, Colors.Wall, Colors.WallBackground, '#');
+                }
+            }
+        }
+
+
+        public void UpdatePlayerFieldOfView()
+        {
+            Player player = Engine.Player;
+
+            //Computes the players field of view based on position and awareness value
+            ComputeFov(player.x, player.y, player.Awareness, true);
+
+            //Mark all cells in the field of view as having been explored
+            foreach(Cell cell in GetAllCells())
+            {
+                if(IsInFov (cell.X, cell.Y))
+                {
+                    SetCellProperties(cell.X, cell.Y, cell.IsTransparent, cell.IsWalkable, true);
                 }
             }
         }

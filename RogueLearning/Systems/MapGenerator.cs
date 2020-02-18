@@ -37,7 +37,7 @@ namespace RogueLearning
                 _map.SetCellProperties(cell.X, cell.Y, false, false, true);
             }
 
-            //Set the first and last COLUMNS in the mape to not be transparent tor walkable
+            //Set the first and last COLUMNS in the map to not be transparent tor walkable
             //Sets the borders for the room
             foreach (Cell cell in _map.GetCellsInColumns(0, _width - 1))
             {

@@ -1,5 +1,6 @@
 ﻿using RLNET;
 using System;
+using RogueLearning.Core;
 
 namespace RogueLearning
 {
@@ -33,6 +34,9 @@ namespace RogueLearning
         //The map
         private static DungeonMap DungeonMap { get;  set; }
 
+        //Actors
+        public static Player Player { get; private set; }
+
 
 
 
@@ -41,14 +45,29 @@ namespace RogueLearning
         {
             _rootConsole = new RLRootConsole("ascii_8x8.png", _screenWidth, _screenHeight, 8, 8, 1f, "RLLearning");
 
+            //Create console windows
             _mapConsole = new RLConsole(_mapWidth, _mapHeight);
             _messageConsole = new RLConsole(_messageWidth, _messageHeight);
             _statConsole = new RLConsole(_statWidth, _statHeight);
             _inventoryConsole = new RLConsole(_inventoryWidth, _inventoryHeight);
 
+            //Set Console Windows
+            _messageConsole.SetBackColor(0, 0, _messageWidth, _messageHeight, Palette.ComplimentDarkest);
+            _messageConsole.Print(1, 1, "Messages", RLColor.White);
+
+            _statConsole.SetBackColor(0, 0, _statWidth, _statHeight, Palette.SecondaryDarkest);
+            _statConsole.Print(1, 1, "Stats", RLColor.White);
+
+            _inventoryConsole.SetBackColor(0, 0, _inventoryWidth, _inventoryHeight, Palette.AlternateDarkest);
+            _inventoryConsole.Print(1, 1, "Inventory", RLColor.White);
+
+            //Create Player
+            Player = new Player();
+
             MapGenerator mapGenerator = new MapGenerator(_mapWidth, _mapHeight);
             DungeonMap = mapGenerator.CreateMap();
 
+            DungeonMap.UpdatePlayerFieldOfView();
 
             _rootConsole.Render += OnRootConsoleRender;
             _rootConsole.Update += OnRootConsoleUpdate;
@@ -63,6 +82,7 @@ namespace RogueLearning
         private static void OnRootConsoleRender(object sender, UpdateEventArgs e)
         {
             DungeonMap.Draw(_mapConsole);
+            Player.Draw(_mapConsole, DungeonMap);
 
             /*Blitting - adding two consoles (bitmaps) on top of each other.
              * Takes the source console, the starting position for X and Y, the dimensions of the source console, then takes the root console and maps 
@@ -87,18 +107,9 @@ namespace RogueLearning
 
         private static void OnRootConsoleUpdate(object sender, UpdateEventArgs e)
         {
+           
+
             
-            _mapConsole.SetBackColor(0, 0, _mapWidth, _mapHeight, RLColor.Black);
-            //_mapConsole.Print(1, 1, "Map", RLColor.White);
-
-            _messageConsole.SetBackColor(0, 0, _messageWidth, _messageHeight, Palette.ComplimentDarkest);
-            _messageConsole.Print(1, 1, "Messages", RLColor.White);
-
-            _statConsole.SetBackColor(0, 0, _statWidth, _statHeight, Palette.SecondaryDarkest);
-            _statConsole.Print(1, 1, "Stats", RLColor.White);
-
-            _inventoryConsole.SetBackColor(0, 0, _inventoryWidth, _inventoryHeight, Palette.AlternateDarkest);
-            _inventoryConsole.Print(1, 1, "Inventory", RLColor.White);
 
         }
     }
