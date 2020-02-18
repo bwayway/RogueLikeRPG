@@ -1,6 +1,4 @@
 ﻿using RLNET;
-using RogueSharp;
-using RogueLearning.Interfaces;
 
 namespace RogueLearning.Core
 {

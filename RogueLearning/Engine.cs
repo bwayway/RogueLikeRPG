@@ -1,6 +1,6 @@
 ﻿using RLNET;
-using System;
 using RogueLearning.Core;
+using RogueLearning.Systems;
 
 namespace RogueLearning
 {
@@ -32,18 +32,24 @@ namespace RogueLearning
         private static RLConsole _inventoryConsole;
 
         //The map
-        private static DungeonMap DungeonMap { get;  set; }
+        public static DungeonMap DungeonMap { get;  set; }
 
         //Actors
         public static Player Player { get; private set; }
 
+        private static bool _renderRequired = true;
 
+        public static CommandSystem CommandSystem { get; private set; }
 
 
 
         static void Main(string[] args)
         {
             _rootConsole = new RLRootConsole("ascii_8x8.png", _screenWidth, _screenHeight, 8, 8, 1f, "RLLearning");
+
+            //Create Command System
+            CommandSystem = new CommandSystem();
+
 
             //Create console windows
             _mapConsole = new RLConsole(_mapWidth, _mapHeight);
@@ -81,21 +87,27 @@ namespace RogueLearning
 
         private static void OnRootConsoleRender(object sender, UpdateEventArgs e)
         {
-            DungeonMap.Draw(_mapConsole);
-            Player.Draw(_mapConsole, DungeonMap);
+            //Don't redraw everything unless something changes
+            if (_renderRequired)
+            {
+                DungeonMap.Draw(_mapConsole);
+                Player.Draw(_mapConsole, DungeonMap);
 
-            /*Blitting - adding two consoles (bitmaps) on top of each other.
-             * Takes the source console, the starting position for X and Y, the dimensions of the source console, then takes the root console and maps 
-             * the source console based on dimensions passed in
-            */
-            RLConsole.Blit(_mapConsole, 0, 0, _mapWidth, _mapHeight, _rootConsole, 0, _inventoryHeight);
-            RLConsole.Blit(_statConsole, 0, 0, _statWidth, _statHeight, _rootConsole, _mapWidth, 0);
-            RLConsole.Blit(_messageConsole, 0, 0, _messageWidth, _messageHeight, _rootConsole, 0, _screenHeight - _messageHeight);
-            RLConsole.Blit(_inventoryConsole, 0, 0, _inventoryWidth, _inventoryHeight, _rootConsole, 0, 0);
+                /*Blitting - adding two consoles (bitmaps) on top of each other.
+                 * Takes the source console, the starting position for X and Y, the dimensions of the source console, then takes the root console and maps 
+                 * the source console based on dimensions passed in
+                */
+                RLConsole.Blit(_mapConsole, 0, 0, _mapWidth, _mapHeight, _rootConsole, 0, _inventoryHeight);
+                RLConsole.Blit(_statConsole, 0, 0, _statWidth, _statHeight, _rootConsole, _mapWidth, 0);
+                RLConsole.Blit(_messageConsole, 0, 0, _messageWidth, _messageHeight, _rootConsole, 0, _screenHeight - _messageHeight);
+                RLConsole.Blit(_inventoryConsole, 0, 0, _inventoryWidth, _inventoryHeight, _rootConsole, 0, 0);
 
 
-            
-            _rootConsole.Draw();
+
+                _rootConsole.Draw();
+            }
+
+            _renderRequired = false;
 
             
 
@@ -107,10 +119,37 @@ namespace RogueLearning
 
         private static void OnRootConsoleUpdate(object sender, UpdateEventArgs e)
         {
-           
+            bool didPlayerAct = false;
+            RLKeyPress keyPress = _rootConsole.Keyboard.GetKeyPress();
 
-            
+            if( keyPress != null)
+            {
+                if (keyPress.Key == RLKey.Up)
+                {
+                    didPlayerAct = CommandSystem.MovePlayer(Direction.Up);
+                }
+                else if(keyPress.Key == RLKey.Down)
+                {
+                    didPlayerAct = CommandSystem.MovePlayer(Direction.Down);
+                }
+                else if(keyPress.Key == RLKey.Left)
+                {
+                    didPlayerAct = CommandSystem.MovePlayer(Direction.Left);
+                }
+                else if( keyPress.Key == RLKey.Right)
+                {
+                    didPlayerAct = CommandSystem.MovePlayer(Direction.Right);
+                }
+                else if( keyPress.Key == RLKey.Escape)
+                {
+                    _rootConsole.Close();
+                }
+            }
 
+            if (didPlayerAct)
+            {
+                _renderRequired = true;
+            }
         }
     }
 }

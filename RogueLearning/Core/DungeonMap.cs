@@ -70,5 +70,38 @@ namespace RogueLearning
                 }
             }
         }
+
+
+
+
+        public bool SetActorPosition( Actor actor, int x, int y)
+        {
+            //Check to see if the cell the actor will be moving to is walkable
+            if(GetCell(x, y).IsWalkable)
+            {
+                //The cell the actor was previously on is now walkable
+                SetIsWalkable(actor.x, actor.y, true);
+
+                //Update actor's position
+                actor.x = x;
+                actor.y = y;
+                //The new cell the actor is now on is not walkable. This makes sure actors don't pile on top of each other on the same cell
+                SetIsWalkable(actor.x, actor.y, false);
+
+                //Update FOV if the actor is the player
+                if (actor is Player)
+                {
+                    UpdatePlayerFieldOfView();
+                }
+                return true;
+            }
+            return false;
+        }
+
+        public void SetIsWalkable (int x, int y, bool isWalkable)
+        {
+            Cell cell = GetCell(x, y);
+            SetCellProperties(cell.X, cell.Y, cell.IsTransparent, isWalkable, cell.IsExplored);
+        }
     }
 }

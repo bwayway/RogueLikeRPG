@@ -11,3 +11,16 @@ C:\Users\Brendan\Desktop\RogueLike\RogueLikeRPG\RogueLearning\obj\Debug\RogueLea
 C:\Users\Brendan\Desktop\RogueLike\RogueLikeRPG\RogueLearning\obj\Debug\RogueLearning.csproj.CopyComplete
 C:\Users\Brendan\Desktop\RogueLike\RogueLikeRPG\RogueLearning\obj\Debug\RogueLearning.exe
 C:\Users\Brendan\Desktop\RogueLike\RogueLikeRPG\RogueLearning\obj\Debug\RogueLearning.pdb
+C:\Users\y15008\source\repos\RogueLearning\RogueLikeRPG\RogueLearning\bin\Debug\ascii_8x8.png
+C:\Users\y15008\source\repos\RogueLearning\RogueLikeRPG\RogueLearning\bin\Debug\RogueLearning.exe.config
+C:\Users\y15008\source\repos\RogueLearning\RogueLikeRPG\RogueLearning\bin\Debug\RogueLearning.exe
+C:\Users\y15008\source\repos\RogueLearning\RogueLikeRPG\RogueLearning\bin\Debug\RogueLearning.pdb
+C:\Users\y15008\source\repos\RogueLearning\RogueLikeRPG\RogueLearning\bin\Debug\OpenTK.dll
+C:\Users\y15008\source\repos\RogueLearning\RogueLikeRPG\RogueLearning\bin\Debug\RLNET.dll
+C:\Users\y15008\source\repos\RogueLearning\RogueLikeRPG\RogueLearning\bin\Debug\RogueSharp.dll
+C:\Users\y15008\source\repos\RogueLearning\RogueLikeRPG\RogueLearning\bin\Debug\OpenTK.xml
+C:\Users\y15008\source\repos\RogueLearning\RogueLikeRPG\RogueLearning\bin\Debug\OpenTK.dll.config
+C:\Users\y15008\source\repos\RogueLearning\RogueLikeRPG\RogueLearning\obj\Debug\RogueLearning.csprojAssemblyReference.cache
+C:\Users\y15008\source\repos\RogueLearning\RogueLikeRPG\RogueLearning\obj\Debug\RogueLearning.csproj.CopyComplete
+C:\Users\y15008\source\repos\RogueLearning\RogueLikeRPG\RogueLearning\obj\Debug\RogueLearning.exe
+C:\Users\y15008\source\repos\RogueLearning\RogueLikeRPG\RogueLearning\obj\Debug\RogueLearning.pdb

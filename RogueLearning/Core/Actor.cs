@@ -1,7 +1,8 @@
 ﻿using RLNET;
 using RogueSharp;
+using RogueLearning.Interfaces;
 
-namespace RogueLearning.Interfaces
+namespace RogueLearning.Core
 {
     public class Actor : IActor, IDrawable
     {
