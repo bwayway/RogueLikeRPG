@@ -1,6 +1,8 @@
 ﻿using RLNET;
 using RogueLearning.Core;
 using RogueLearning.Systems;
+using RogueSharp.Random;
+using System;
 
 namespace RogueLearning
 {
@@ -41,10 +43,23 @@ namespace RogueLearning
 
         public static CommandSystem CommandSystem { get; private set; }
 
+        //IRandom used throughout the game when generating random numbers
+        public static IRandom Random { get; private set; }
+
 
 
         static void Main(string[] args)
         {
+
+            //Establish the seed for the random number generator from the current time
+            int seed = (int)DateTime.UtcNow.Ticks;
+            Random = new DotNetRandom(seed);
+
+
+            //The title + seed number
+
+            string consoleTitle = $"RogueLearning - Level 1 - Seed {seed}";
+
             _rootConsole = new RLRootConsole("ascii_8x8.png", _screenWidth, _screenHeight, 8, 8, 1f, "RLLearning");
 
             //Create Command System
@@ -70,7 +85,7 @@ namespace RogueLearning
             //Create Player
             Player = new Player();
 
-            MapGenerator mapGenerator = new MapGenerator(_mapWidth, _mapHeight);
+            MapGenerator mapGenerator = new MapGenerator(_mapWidth, _mapHeight, 20,13,7);
             DungeonMap = mapGenerator.CreateMap();
 
             DungeonMap.UpdatePlayerFieldOfView();
@@ -110,7 +125,7 @@ namespace RogueLearning
             _renderRequired = false;
 
             
-
+            
 
         }
 
